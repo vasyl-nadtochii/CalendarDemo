@@ -31,6 +31,11 @@ struct ContentView: View {
     }
 }
 
+struct Data {
+    // setting start date 2 days ago
+    static let startDate = Date.now.addingTimeInterval(-86400 * 3)
+}
+
 extension Date {
     var stringDate: String {
         let dateFormatter = DateFormatter()
@@ -115,7 +120,7 @@ struct MonthView<DateView>: View where DateView: View {
     }
     
     private func daysBar() -> some View {
-        let dayNames = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
+        let dayNames = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"]
         
         return HStack {
             ForEach(dayNames, id: \.self) { name in
