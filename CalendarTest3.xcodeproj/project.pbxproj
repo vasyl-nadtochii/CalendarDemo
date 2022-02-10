@@ -14,7 +14,7 @@
 		8B83607C27B49EE300AE29A9 /* CalendarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83607B27B49EE300AE29A9 /* CalendarItemView.swift */; };
 		8B83607E27B4F2B300AE29A9 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83607D27B4F2B200AE29A9 /* CalendarView.swift */; };
 		8B83608027B4F2F400AE29A9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83607F27B4F2F400AE29A9 /* Extensions.swift */; };
-		8B83608327B4F32E00AE29A9 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83608227B4F32E00AE29A9 /* Data.swift */; };
+		8B83608327B4F32E00AE29A9 /* CalendarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83608227B4F32E00AE29A9 /* CalendarData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 		8B83607B27B49EE300AE29A9 /* CalendarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalendarItemView.swift; path = ../../CalendarTest2/CalendarTest2/CalendarItemView.swift; sourceTree = "<group>"; };
 		8B83607D27B4F2B200AE29A9 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		8B83607F27B4F2F400AE29A9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		8B83608227B4F32E00AE29A9 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		8B83608227B4F32E00AE29A9 /* CalendarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 				8B83607327B49C6F00AE29A9 /* Preview Content */,
 				8B83607D27B4F2B200AE29A9 /* CalendarView.swift */,
 				8B83607F27B4F2F400AE29A9 /* Extensions.swift */,
-				8B83608227B4F32E00AE29A9 /* Data.swift */,
+				8B83608227B4F32E00AE29A9 /* CalendarData.swift */,
 			);
 			path = CalendarTest3;
 			sourceTree = "<group>";
@@ -150,7 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B83608027B4F2F400AE29A9 /* Extensions.swift in Sources */,
-				8B83608327B4F32E00AE29A9 /* Data.swift in Sources */,
+				8B83608327B4F32E00AE29A9 /* CalendarData.swift in Sources */,
 				8B83607027B49C6D00AE29A9 /* ContentView.swift in Sources */,
 				8B83606E27B49C6D00AE29A9 /* CalendarTest3App.swift in Sources */,
 				8B83607E27B4F2B300AE29A9 /* CalendarView.swift in Sources */,

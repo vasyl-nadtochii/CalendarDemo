@@ -15,13 +15,17 @@ struct CalendarView<DateView>: View where DateView: View {
     let interval: DateInterval
     let content: (Date) -> DateView
     
+    var data: CalendarData
+    
     @State private var selection = Calendar.current.component(.month, from: Date())
 
     init(
         interval: DateInterval,
+        data: CalendarData,
         @ViewBuilder content: @escaping (Date) -> DateView
     ) {
         self.interval = interval
+        self.data = data
         self.content = content
     }
 

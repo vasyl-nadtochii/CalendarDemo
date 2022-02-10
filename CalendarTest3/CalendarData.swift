@@ -9,7 +9,10 @@
 
 import Foundation
 
-struct Data {
+class CalendarData: ObservableObject {
     // setting start date 2 days ago
-    static let startDate = Date.now.addingTimeInterval(-86400 * 3)
+    static let shared = CalendarData()
+    
+    let startDate = Date.now.addingTimeInterval(-86400 * 3)
+    @Published var selectedDates: [Date] = []
 }

@@ -12,6 +12,8 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.calendar) var calendar
     @State var notification: String = ""
+    
+    @ObservedObject var data: CalendarData = CalendarData.shared
 
     private var year: DateInterval {
        calendar.dateInterval(of: .year, for: Date())!
@@ -19,18 +21,20 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            CalendarView(interval: year) { date in
+            CalendarView(interval: year, data: data) { date in
                 CalendarItemView(date: date, handler: {
                     if Calendar.current.isDateInToday(date) {
                         notification = "Keep going! :)"
                     }
-                    else if date >= Data.startDate && date < Date() {
+                    else if date >= data.startDate && date < Date() {
                         notification = "I missed you :("
                     }
                     else {
                         notification = "Seems like someone's cheating -_-"
                     }
-                }, screenWidth: UIScreen.main.bounds.size.width)
+                    
+                    data.selectedDates.append(date)
+                }, data: data, screenWidth: UIScreen.main.bounds.size.width)
             }
             .frame(height: UIScreen.main.bounds.size.width + 100)
             
