@@ -90,6 +90,7 @@ struct MonthView<DateView>: View where DateView: View {
             ForEach(dayNames, id: \.self) { name in
                 Text(name)
                     .fontWeight(.light)
+                    .foregroundColor((name == "SU") ? Color.red : Color.primary)
                     .frame(width: UIScreen.main.bounds.size.width / 7 - 7.5)
             }
         }
