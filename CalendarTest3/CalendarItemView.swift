@@ -10,7 +10,10 @@ import SwiftUI
 
 struct CalendarItemView: View {
     let date: Date
+    
     let handler: () -> Void
+    let streakHandler: () -> Void
+    
     var data: CalendarData
     
     let screenWidth: CGFloat
@@ -18,38 +21,44 @@ struct CalendarItemView: View {
     @State var status: ItemStatus = .past
     
     var body: some View {
-        Button {
-            if date >= data.startDate {
-                if status == .selected {
-                    data.selectedDates.removeAll(where: { date in
-                        Calendar.current.isDate(self.date, inSameDayAs: date)
-                    })
-                    getStatusForDate()
-                }
-                else {
-                    status = .selected
-                    simpleSuccess()
-                    handler()
+        Circle()
+            .foregroundColor(getBackgroundColor())
+            .frame(height: screenWidth / 7 - 10)
+            .overlay {
+                Text("\(Calendar.current.dateComponents([.day], from: date).day!)")
+                    .foregroundColor(getForegroundColor())
+                    .fontWeight(.semibold)
+            }
+            .onTapGesture {
+                if date >= data.startDate {
+                    if status == .selected {
+                        data.selectedDates.removeAll(where: { date in
+                            Calendar.current.isDate(self.date, inSameDayAs: date)
+                        })
+                        getStatusForDate()
+                        
+                        unmarkVibration()
+                    }
+                    else {
+                        status = .selected
+                        markVibration()
+                        handler()
+                    }
+                    
+                    streakHandler()
                 }
             }
-        } label: {
-            Circle()
-                .foregroundColor(getBackgroundColor())
-                .frame(height: screenWidth / 7 - 10)
-                .overlay {
-                    Text("\(Calendar.current.dateComponents([.day], from: date).day!)")
-                        .foregroundColor(getForegroundColor())
-                        .fontWeight(.semibold)
-                }
-        }
-        .onAppear(perform: {
-            getStatusForDate()
-        })
+            .onAppear(perform: {
+                getStatusForDate()
+            })
     }
     
-    func simpleSuccess() {
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+    func markVibration() {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+    
+    func unmarkVibration() {
+        UINotificationFeedbackGenerator().notificationOccurred(.warning)
     }
     
     func getStatusForDate() {
@@ -107,7 +116,7 @@ extension CalendarItemView {
 
 struct CalendarItemView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarItemView(date: Date(), handler: { }, data: CalendarData(), screenWidth: UIScreen.main.bounds.size.width)
+        CalendarItemView(date: Date(), handler: { }, streakHandler: { }, data: CalendarData(), screenWidth: UIScreen.main.bounds.size.width)
     }
 }
 

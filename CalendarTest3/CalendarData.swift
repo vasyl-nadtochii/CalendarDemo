@@ -8,6 +8,7 @@
 
 
 import Foundation
+import SwiftUI
 
 class CalendarData: ObservableObject {
     // setting start date 2 days ago

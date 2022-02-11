@@ -21,7 +21,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            CalendarView(interval: year, data: data) { date in
+            CalendarView(interval: year, data: data) { date, streakHandler in
                 CalendarItemView(date: date, handler: {
                     if Calendar.current.isDateInToday(date) {
                         notification = "Keep going! :)"
@@ -34,7 +34,7 @@ struct ContentView: View {
                     }
                     
                     data.selectedDates.append(date)
-                }, data: data, screenWidth: UIScreen.main.bounds.size.width)
+                }, streakHandler: streakHandler ?? {}, data: data, screenWidth: UIScreen.main.bounds.size.width)
             }
             .frame(height: UIScreen.main.bounds.size.width + 100)
             
