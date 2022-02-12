@@ -10,8 +10,14 @@
 import Foundation
 
 class HabitCalendarData {
-    static let shared = HabitCalendarData()
-    
     var selectedDates: [Date] = [Date(), Date().dayAfter, Date().dayAfter.dayAfter]
-    var startDate = Date().dayBefore.dayBefore.dayBefore
+    var startDate: Date
+    
+    init() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        startDate = dateFormatter.date(from: "2022-02-09")!
+    }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel: CalendarViewModel =
         CalendarViewModel(interval: Calendar.current.dateInterval(of: .year, for: Date())!,
-                          habitCalendarData: HabitCalendarData.shared)
+                          habitCalendarData: HabitCalendarData())
     
     var body: some View {
         VStack {
