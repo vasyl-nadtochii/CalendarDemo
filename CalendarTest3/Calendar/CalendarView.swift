@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct CalendarView<DateView>: View where DateView: View {
-    @Environment(\.calendar) var calendar
+    var calendar: Calendar
 
     let interval: DateInterval
     let content: (Date, (() -> Void)?) -> DateView
@@ -22,10 +22,12 @@ struct CalendarView<DateView>: View where DateView: View {
     init(
         interval: DateInterval,
         data: CalendarData,
+        calendar: Calendar,
         @ViewBuilder content: @escaping (Date, (() -> Void)?) -> DateView
     ) {
         self.interval = interval
         self.data = data
+        self.calendar = calendar
         self.content = content
     }
 
@@ -40,7 +42,7 @@ struct CalendarView<DateView>: View where DateView: View {
         SwiftUI.Group {
             TabView(selection: $selection) {
                 ForEach(months, id: \.self) { month in
-                    MonthView(month: month, data: data, content: self.content)
+                    MonthView(month: month, data: data, calendar: calendar, content: self.content)
                         .tag(Calendar.current.component(.month, from: month))
                 }
             }

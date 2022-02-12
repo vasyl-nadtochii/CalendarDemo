@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct WeekView<DateView>: View where DateView: View {
-    @Environment(\.calendar) var calendar
+    var calendar: Calendar
 
     let week: Date
     let content: (Date, (() -> Void)?) -> DateView
@@ -39,11 +39,13 @@ struct WeekView<DateView>: View where DateView: View {
         week: Date,
         data: CalendarData,
         forMonth: Date,
+        calendar: Calendar,
         @ViewBuilder content: @escaping (Date, (() -> Void)?) -> DateView
     ) {
         self.week = week
         self.data = data
         self.forMonth = forMonth
+        self.calendar = calendar
         self.content = content
     }
 

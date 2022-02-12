@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.calendar) var calendar
+    @State var calendar = Calendar.current
     @State var notification: String = ""
     
     @ObservedObject var data: CalendarData = CalendarData.shared
@@ -21,7 +21,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            CalendarView(interval: year, data: data) { date, streakHandler in
+            CalendarView(interval: year, data: data, calendar: calendar) { date, streakHandler in
                 CalendarItemView(date: date, handler: {
                     if Calendar.current.isDateInToday(date) {
                         notification = "Keep going! :)"
@@ -43,6 +43,9 @@ struct ContentView: View {
             Spacer()
         }
         .padding(.top)
+        .onAppear {
+            calendar.firstWeekday = 1
+        }
     }
 }
 

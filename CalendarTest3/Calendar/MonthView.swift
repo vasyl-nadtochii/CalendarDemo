@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct MonthView<DateView>: View where DateView: View {
-    @Environment(\.calendar) var calendar
+    var calendar: Calendar
 
     let month: Date
     let content: (Date, (() -> Void)?) -> DateView
@@ -21,10 +21,12 @@ struct MonthView<DateView>: View where DateView: View {
     init(
         month: Date,
         data: CalendarData,
+        calendar: Calendar,
         @ViewBuilder content: @escaping (Date, (() -> Void)?) -> DateView
     ) {
         self.month = month
         self.data = data
+        self.calendar = calendar
         self.content = content
     }
 
@@ -73,13 +75,8 @@ struct MonthView<DateView>: View where DateView: View {
             Divider()
             
             ForEach(weeks, id: \.self) { week in
-                WeekView(week: week, data: data, forMonth: month, content: self.content)
+                WeekView(week: week, data: data, forMonth: month, calendar: calendar, content: self.content)
                     .frame(height: screenWidth / 7 - 10)
-                    .environment(\.calendar, {
-                        var calendar = Calendar.current
-                        calendar.firstWeekday = 1
-                        return calendar
-                     }())
             }
             
             Spacer()
