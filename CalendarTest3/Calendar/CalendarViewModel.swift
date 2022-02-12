@@ -20,5 +20,7 @@ class CalendarViewModel: ObservableObject {
     init(interval: DateInterval, habitCalendarData: HabitCalendarData) {
         self.interval = interval
         self.habitCalendarData = habitCalendarData
+        
+        calendar.locale = Locale(identifier: "en_US")
     }
 }
