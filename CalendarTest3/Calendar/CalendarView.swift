@@ -6,43 +6,31 @@
 //  Copyright (c) 2022 StarGo. All rights reserved.
 //
 
-
 import SwiftUI
 
 struct CalendarView<DateView>: View where DateView: View {
-    var calendar: Calendar
-
-    let interval: DateInterval
     let content: (Date, (() -> Void)?) -> DateView
+    @ObservedObject var viewModel: CalendarViewModel
     
-    var data: CalendarData
-    
-    @State private var selection = Calendar.current.component(.month, from: Date())
-
-    init(
-        interval: DateInterval,
-        data: CalendarData,
-        calendar: Calendar,
-        @ViewBuilder content: @escaping (Date, (() -> Void)?) -> DateView
-    ) {
-        self.interval = interval
-        self.data = data
-        self.calendar = calendar
+    init(viewModel: CalendarViewModel, @ViewBuilder content: @escaping (Date, (() -> Void)?) -> DateView) {
+        self.viewModel = viewModel
         self.content = content
     }
 
     private var months: [Date] {
-        calendar.generateDates(
-            inside: interval,
+        viewModel.calendar.generateDates(
+            inside: viewModel.interval,
             matching: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
         )
     }
 
     var body: some View {
         SwiftUI.Group {
-            TabView(selection: $selection) {
+            TabView(selection: $viewModel.selection) {
                 ForEach(months, id: \.self) { month in
-                    MonthView(month: month, data: data, calendar: calendar, content: self.content)
+                    MonthView(viewModel: MonthViewModel(month: month,
+                                                        calendar: viewModel.calendar,
+                                                        habit: viewModel.habitCalendarData), content: self.content)
                         .tag(Calendar.current.component(.month, from: month))
                 }
             }

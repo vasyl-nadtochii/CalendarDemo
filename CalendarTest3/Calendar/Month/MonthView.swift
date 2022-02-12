@@ -10,35 +10,10 @@
 import SwiftUI
 
 struct MonthView<DateView>: View where DateView: View {
-    var calendar: Calendar
-
-    let month: Date
-    let content: (Date, (() -> Void)?) -> DateView
-    var data: CalendarData
+    @ObservedObject var viewModel: MonthViewModel
     
     let screenWidth = UIScreen.main.bounds.size.width
-
-    init(
-        month: Date,
-        data: CalendarData,
-        calendar: Calendar,
-        @ViewBuilder content: @escaping (Date, (() -> Void)?) -> DateView
-    ) {
-        self.month = month
-        self.data = data
-        self.calendar = calendar
-        self.content = content
-    }
-
-    private var weeks: [Date] {
-        guard
-            let monthInterval = calendar.dateInterval(of: .month, for: month)
-            else { return [] }
-        return calendar.generateDates(
-            inside: monthInterval,
-            matching: DateComponents(hour: 0, minute: 0, second: 0, weekday: calendar.firstWeekday)
-        )
-    }
+    let content: (Date, (() -> Void)?) -> DateView
     
     private func header(for month: Date) -> some View {
         let formatter = DateFormatter()
@@ -69,13 +44,15 @@ struct MonthView<DateView>: View where DateView: View {
 
     var body: some View {
         VStack {
-            header(for: month)
+            header(for: viewModel.month)
             daysBar()
             
             Divider()
             
-            ForEach(weeks, id: \.self) { week in
-                WeekView(week: week, data: data, forMonth: month, calendar: calendar, content: self.content)
+            ForEach(viewModel.weeks, id: \.self) { week in
+                WeekView(viewModel: WeekViewModel(week: week, forMonth: viewModel.month,
+                                                  habit: viewModel.habit,
+                                                  calendar: viewModel.calendar), content: content)
                     .frame(height: screenWidth / 7 - 10)
             }
             
